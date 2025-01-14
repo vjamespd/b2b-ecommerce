@@ -18,7 +18,7 @@ function PaypalReturnPage() {
       dispatch(capturePayment({ paymentId, payerId, orderId })).then((data) => {
         if (data?.payload?.success) {
           sessionStorage.removeItem("currentOrderId");
-          window.location.href = "/shop/payment-success";
+          window.location.href = "https://celadon-lokum-dc1e20.netlify.app/shop/payment-success";
         }
       });
     }

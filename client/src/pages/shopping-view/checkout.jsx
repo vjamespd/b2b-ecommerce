@@ -7,6 +7,7 @@ import { useState } from "react";
 import { createNewOrder } from "@/store/shop/order-slice";
 import { Navigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
+import { loadStripe } from "@stripe/stripe-js";
 
 function ShoppingCheckout() {
   const { cartItems } = useSelector((state) => state.shopCart);
@@ -17,7 +18,7 @@ function ShoppingCheckout() {
   const dispatch = useDispatch();
   const { toast } = useToast();
 
-  console.log(currentSelectedAddress, "cartItems");
+  // console.log(currentSelectedAddress);
 
   const totalCartAmount =
     cartItems && cartItems.items && cartItems.items.length > 0
@@ -33,22 +34,23 @@ function ShoppingCheckout() {
       : 0;
 
   function handleInitiatePaypalPayment() {
-    if (cartItems.length === 0) {
-      toast({
-        title: "Your cart is empty. Please add items to proceed",
-        variant: "destructive",
-      });
 
-      return;
-    }
-    if (currentSelectedAddress === null) {
-      toast({
-        title: "Please select one address to proceed.",
-        variant: "destructive",
-      });
+    // if (cartItems.length === 0) {
+    //   toast({
+    //     title: "Your cart is empty. Please add items to proceed",
+    //     variant: "destructive",
+    //   });
 
-      return;
-    }
+    //   return;
+    // }
+    // if (currentSelectedAddress === null) {
+    //   toast({
+    //     title: "Please select one address to proceed.",
+    //     variant: "destructive",
+    //   });
+
+    //   return;
+    // }
 
     const orderData = {
       userId: user?.id,
@@ -83,7 +85,7 @@ function ShoppingCheckout() {
     console.log(orderData);
 
     dispatch(createNewOrder(orderData)).then((data) => {
-      console.log(data, "vinard");
+      console.log(data);
       if (data?.payload?.success) {
         setIsPaymemntStart(true);
       } else {
@@ -95,6 +97,31 @@ function ShoppingCheckout() {
   if (approvalURL) {
     window.location.href = approvalURL;
   }
+
+  const makePayment = async () => {
+    const stripe = await loadStripe("pk_test_51Qh0YWKBrIEQW8JfOeroDEhNBebTNu0IGPk3BQjwE5zgnOOs6weClgUAYwI0H3mWvd9bLiUCUK5ODCrRBdy0C0U300cHyKXCkh"); // Replace with your publishable key
+  
+    const body = {
+      products: cartItems,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const response = await fetch(`${process.env.API_URL}/api/shop/stripe/create-checkout-session`, { 
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body),
+    });
+    const session = await response.json();
+  
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+  
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -119,11 +146,9 @@ function ShoppingCheckout() {
             </div>
           </div>
           <div className="mt-4 w-full">
-            <Button onClick={handleInitiatePaypalPayment} className="w-full">
-              {isPaymentStart
-                ? "Processing Paypal Payment..."
-                : "Checkout with Paypal"}
-            </Button>
+          <Button onClick={handleInitiatePaypalPayment} className="w-full">
+  {isPaymentStart ? "Processing Payment..." : "Pay with Stripe"} 
+</Button>
           </div>
         </div>
       </div>

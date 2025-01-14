@@ -12,8 +12,11 @@ const shopAddressRouter = require("./routes/shop/address-routes");
 const shopOrderRouter = require("./routes/shop/order-routes");
 const shopSearchRouter = require("./routes/shop/search-routes");
 const shopReviewRouter = require("./routes/shop/review-routes");
+// const stripeRoutes = require('./routes/shop/stripe-routes'); 
 
 const commonFeatureRouter = require("./routes/common/feature-routes");
+
+
 
 //create a database connection -> u can also
 //create a separate file for this and then import/use that file here
@@ -53,6 +56,7 @@ app.use("/api/shop/address", shopAddressRouter);
 app.use("/api/shop/order", shopOrderRouter);
 app.use("/api/shop/search", shopSearchRouter);
 app.use("/api/shop/review", shopReviewRouter);
+// app.use('/api/shop/stripe', stripeRoutes); 
 
 app.use("/api/common/feature", commonFeatureRouter);
 

@@ -147,7 +147,7 @@ function ShoppingCheckout() {
           </div>
           <div className="mt-4 w-full">
           <Button onClick={handleInitiatePaypalPayment} className="w-full">
-  {isPaymentStart ? "Processing Payment..." : "Pay with Stripe"} 
+  {isPaymentStart ? "Processing Payment..." : "Proceed to Payment"} 
 </Button>
           </div>
         </div>

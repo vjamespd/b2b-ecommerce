@@ -27,9 +27,9 @@ const createOrder = async (req, res) => {
       },
       redirect_urls: {
         return_url:
-          "https://b2b-ecommerce-urc2.onrender.com/shop/paypal-return",
+          "http://localhost:5173/shop/paypal-return",
         cancel_url:
-          "https://b2b-ecommerce-urc2.onrender.com/shop/paypal-cancel",
+          "http://localhost:5173/shop/paypal-cancel",
       },
       transactions: [
         {

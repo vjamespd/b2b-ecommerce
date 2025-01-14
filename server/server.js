@@ -29,7 +29,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "https://b2b-ecommerce-urc2.onrender.com",
+    origin: "https://celadon-lokum-dc1e20.netlify.app",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",

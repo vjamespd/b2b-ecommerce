@@ -18,7 +18,7 @@ function PaypalReturnPage() {
       dispatch(capturePayment({ paymentId, payerId, orderId })).then((data) => {
         if (data?.payload?.success) {
           sessionStorage.removeItem("currentOrderId");
-          window.location.href = "https://b2b-ecommerce-gf5g.onrender.com/shop/payment-success";
+          window.location.href = "https://b2b-ecommerce-gf5g.onrender.com/api/shop/payment-success";
         }
       });
     }

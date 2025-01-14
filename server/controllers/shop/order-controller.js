@@ -26,8 +26,10 @@ const createOrder = async (req, res) => {
         payment_method: "paypal",
       },
       redirect_urls: {
-        return_url: "http://localhost:5173/shop/paypal-return",
-        cancel_url: "http://localhost:5173/shop/paypal-cancel",
+        return_url:
+          "https://b2b-ecommerce-urc2.onrender.com/shop/paypal-return",
+        cancel_url:
+          "https://b2b-ecommerce-urc2.onrender.com/shop/paypal-cancel",
       },
       transactions: [
         {

@@ -27,9 +27,9 @@ const createOrder = async (req, res) => {
       },
       redirect_urls: {
         return_url:
-          "https://celadon-lokum-dc1e20.netlify.app/shop/paypal-return",
+          "https://b2b-ecommerce-gf5g.onrender.com/shop/paypal-return",
         cancel_url:
-          "https://celadon-lokum-dc1e20.netlify.app/shop/paypal-cancel",
+          "https://b2b-ecommerce-gf5g.onrender.com/shop/paypal-cancel",
       },
       transactions: [
         {
